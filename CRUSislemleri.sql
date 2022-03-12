@@ -3,7 +3,7 @@
 -- UPDATE
 -- DELETE
 
---CREATE - INSERT INTO
+--									CREATE - INSERT INTO
 
 --- Bir tabloya veri eklemek.
 --  1- İlk olarak "insert into " kullanılır
@@ -20,7 +20,9 @@
 	values ('Samsung'),('Asus'),('HP'),('Apple')
 	
 	insert into tblmodel(ad,markaid)
-	values ('MacBook Air M1',4),
+	values 
+		   ('Glaxy Phone',1),
+		   ('MacBook Air M1',4),
 		   ('MacBook Pro M1',4),
 		   ('MacBook Pro Intel',4)
 
@@ -38,6 +40,93 @@ insert into tblurun(ad,alisfiyatti,fiyat,
 						)
 	values('Telefon 128GB',10000,15000,57,3),
 		  ('Telefon 256GB',19000,25000,66,2)
+		  
+		  
+--   								UPDATE - GÜNCELLEME 
+
+
+-- 1- İlk olarak UPDATE komutu girilir.
+-- 2- bir boşluk bırakılarak tablo adı girilir.
+-- 3- SET anahtar eklemesi eklenir.
+-- Eklenerek atanmak istenen değer yazılır.
+-- DİKKAT atanılacak değer alan adının tipine uygun şekilde yazılmalıdır
+
+--  ÇOK ÖNEMLİ !!!! Degişririlmek istenilen ürün belirtilmelidir.
+-- eğer değiştirme istediğiniz değeri primary key(id) değerini
+-- girmez isteniz tüm katıtların güncellenmesine neden olursunuz.
+
+-- WHERE anahtar değeri ile hangi kayıt'ın güncelleneceği belirtilir.
+
+update tblurun set markaid=1, modelid=4 where id=2
+
+update tblurun set markaid=1, modelid=4 where id<3
+
+
+
+-- 										DELETE - Silmek
+
+-- 1- Delete komutu eklenir bir boşluk bırakılarak from anahtarı eklenir
+-- 2- verileri silmek istenilen tablo adı bir boşluk bırakılarak yazılır
+-- 3- DİKKAT!!!!  silme işleminde silinencek bilginin primary key (id)
+-- degerinin girilmiş olduğundan emin olunuz. aksi durumda tüm 
+-- tablo datalarının silinmesine neden olursunuz.
+-- Where anahtarı ile silmek istenilen kaydın koşulunu girersiniz.
+
+delete from tblurun where id=1
+
+
+
+--										 READ - OKUMAK
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		  
 		  
 		  
