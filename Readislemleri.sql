@@ -221,15 +221,47 @@ group by musteriid
 select musteriid,count(*),SUM(nakitodemetutarı) from tblodeme GROUP by musteriid
 
 
- select ur.id,ur.ad,ur.fiyat,tblmarka.ad,tblmodel.ad
+-- VİEW , hazırlandıgınız soruları bir şablon halinde 
+-- tutmak ve daha sonra kullanmak üzere oluşturulan görünümlerdir
+-- view ler tablo gibi davranır. bir tablo üzerinde 
+-- uyguladığınız tüm işlemleri view içinde yapabilirsiniz.
+
+
+ create view vwtumurunler
+ as
+ select ur.id,ur.ad as urunAdi ,ur.fiyat,
+ tblmarka.ad as markaAdi ,tblmodel.ad
  from tblurun as ur
  left join tblmodel on tblmodel.id=ur.modelid
  left join tblmarka on tblmarka.id=tblmodel.markaid
+
+select *from vwtumurunler
+
+
+
+
+
 
  select ur.id,ur.ad,ur.fiyat,tblmarka.ad,tblmodel.ad
  from tblurun as ur
  inner  join tblmodel on tblmodel.id=ur.modelid
  left join tblmarka on tblmarka.id=tblmodel.markaid
+
+-------------------------------------------------------------
+-------------------------------------------------------------
+
+	/* 1- Proje seçin
+	   2- Tabloları ve ilişkilerini yazın
+	   3- 8'den az olmasın , En az 4 ilişkili tablo olsun
+	   4- SORUN OLUSTURUN
+	  neden ? uygulamanız yapılmak istenen program isteklerine 
+	  cevap verebiliyormu
+	
+	---->  ör:  Bu ay hangi müşteriler ödeme yapmadı ?
+	---->
+	*/
+
+
 
 
 
