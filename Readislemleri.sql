@@ -1,3 +1,11 @@
+
+NothWind sql
+
+
+
+
+
+
 -- READ işlemleri
 -- SELECT kullanımı ve Paramtreleri
 -- 1- SELECT seçme anahtarı yazılır
@@ -110,8 +118,121 @@ select NOW()
 --		 AS > Alias > takma ad 
 
 --           ad'ı urunadi yapa biliriz
-select id,ad as urunadi ,kdv, markaid from tblurun
-select 5+10 as toplam
+select id,ad as urunadi ,kdv, markaid from tblurun,
+select 5+10 as toplam,
+
+
+
+
+-------------------------------------------------------------
+-------------------------------------------------------------
+ 
+-- ORDER BY, 
+----- ASC , DESC 
+
+SELECT * From tblil order by ad    --- il adına göre A'dan Z'e sırala
+
+
+select * from tblil order by ad desc  -- il adına göre Z'den A'ya sırala
+
+
+SELECT * From tblil order by ad asc 
+
+-- ASC , küçükten > büyüge sıralar 
+-- 		A....Z sıralama
+--  	0....9
+-- Not:Eğer order by ek bir parametre almaz ise ASC şeklinde davranır.
+-- DESC, Büyükden küçüge ,9....0   ,  Z.....A
+
+
+
+
+select *from tblmusteri
+insert into tblmusteri(ad,soyad) values
+('Emin','bay'),('Sema','Can'),('Tuna','Tunay'),('Nazım','hik'),('Cemal','sür'),('necip','faz'),
+
+
+
+insert into tblodeme(musteriid,nakitodemetutarı)values (1,18050),
+(1,8050),(2,2250),(3,4901),(4,2350),
+(1,7520),(2,1520),(3,4566),(4,7854),
+(1,3301),(2,8950),(3,8550),(4,3549)
+
+
+select id,ad,soyad from tblmusteri where id in (
+select musteriid from tblodeme tblodeme order by musteriid
+)
+
+	--Tekrar eden kayıtları tek gösterim ile gösterimesi
+	-- DISTINCT
+select DISTINCT musteriid from tblodeme order by musteriid
+
+
+-------------------------------------------------------------
+-------------------------------------------------------------
+
+-- GROUP BY
+
+select *from tblodeme
+select musteriid,SUM (nakitodemetutarı) as toplamodeme
+from tblodeme
+group by musteriid
+
+
+-------------------------------------------------------------
+
+--- Bir tabloda var olan yabancı anahtarlı değerlerin 
+--- diger tablodan alınarak birleştirilmesi nasıl yapılır ??
+--  JOIN , referens verilmiş iki tabloyu bu referans değerini baz alarak
+-- birleştirme işlemi yapar.
+
+--- birleştirme işleminde dikkat edilmesi gereken durumlar
+--- 1- hangi tabloyu, hangi tabloya birleştirelim
+--- soruya ya da soruna göre değişir.
+	select * FROM tblodeme
+	join tblmusteri ON tblodeme.musteriid =tblmusteri.id
+	
+	
+---  * tüm tablodaki alanalrı getiriyor . Peki sadece istediğim
+---  tablodan istedigim alanları çekmek istese id'im nasıl olurdu ?
+
+	SELECT tblmusteri.id, tblmusteri.ad,tblmusteri.soyad,
+	tblodeme.nakitodemetutarı
+	from tblodeme
+	join tblmusteri ON tblodeme.musteriid =tblmusteri.id
+	
+	--- Peki , tabloadları ve alan adları çok uzun olsa idi ve 
+	--- bir birine yakın kelimeler karmaşıklık artsa idi nasıl 
+	--- kodlayacaktık ???
+	
+	SELECT ms.id, ms.ad,ms.soyad,sum(od.nakitodemetutarı),count(*)
+	from tblodeme as od
+	join tblmusteri as ms ON od.musteriid =ms.id
+	GROUP by ms.id 
+	HAVING sum(od.nakitodemetutarı) >14000   --- where normal sorgularda 	
+											 --- group by kullanımında
+											 --- sadece having ile kısıtlama
+											 --- yapılabilir. where === having
+	order by sum(od.nakitodemetutarı)
+	
+	
+	--- Ödeme tablosunda hangi müşteri kaç ödeme yaptı ve tutarı ne idi
+
+select musteriid,count(*),SUM(nakitodemetutarı) from tblodeme GROUP by musteriid
+
+
+ select ur.id,ur.ad,ur.fiyat,tblmarka.ad,tblmodel.ad
+ from tblurun as ur
+ left join tblmodel on tblmodel.id=ur.modelid
+ left join tblmarka on tblmarka.id=tblmodel.markaid
+
+ select ur.id,ur.ad,ur.fiyat,tblmarka.ad,tblmodel.ad
+ from tblurun as ur
+ inner  join tblmodel on tblmodel.id=ur.modelid
+ left join tblmarka on tblmarka.id=tblmodel.markaid
+
+
+
 
 
 
